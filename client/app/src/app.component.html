@@ -1,0 +1,9 @@
+<div style="width: 100%; height: 100%;background-color: darkgray; display: flex; justify-content: center; align-items: center;">
+    <div style="width: 500px; height: 500px;position: relative;background-color: lightgray">
+        <div #newMessageEle style="text-align: center"></div>
+        <div style="display: flex; position: absolute; bottom: 0;right: 0;left: 0;font-size: medium">
+            <input (keypress)="handleEnterKey($event);" style="width: 100%;" type="text" placeholder="type here" [(ngModel)]="textMessage"/>
+            <button (click)="sendMessage();">send</button>
+        </div>
+    </div>
+</div>
