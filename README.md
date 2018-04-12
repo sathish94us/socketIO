@@ -1,1 +1,1 @@
-Please install socket io nodemodules for both client and server side
+Please install socket io nodemodules in both client and server side
