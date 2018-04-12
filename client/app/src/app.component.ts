@@ -21,13 +21,29 @@ export class AppComponent implements OnInit
     this.socket = io('http://localhost:3000');
     this.socket.on("new message received", (chatMessage) =>
     {
-      this.appendNewMessage( chatMessage );
+      this.appendNewMessage( chatMessage, false );
     });
   }
 
-  public appendNewMessage( chatMessage ): void
+  public appendNewMessage( chatMessage, rightSide ): void
   {
     var node = document.createElement("h3");
+    node.style.padding = "5px";
+    node.style.borderRadius = "5px";
+    node.style.display = "inline-block";
+    node.style.maxWidth = "200px";
+    if( rightSide === true )
+    {
+      node.style.clear = "both";
+      node.style.backgroundColor = "lightgreen";
+      node.style.cssFloat = "right";
+    }
+    else
+    {
+      node.style.clear = "both";
+      node.style.backgroundColor = "white";
+      node.style.cssFloat = "left";
+    }
     var textnode = document.createTextNode(chatMessage);
     node.appendChild(textnode);
     this.newMessageEle.nativeElement.appendChild(node);
@@ -35,9 +51,12 @@ export class AppComponent implements OnInit
 
   public sendMessage(): void
   {
-    this.socket.emit("new message", this.textMessage);
-    this.appendNewMessage( this.textMessage );
-    this.textMessage = "";
+    if( this.textMessage !== "" )
+    {
+      this.socket.emit("new message", this.textMessage);
+      this.appendNewMessage( this.textMessage, true );
+      this.textMessage = "";
+    }
   }
 
   public handleEnterKey( event ): void
